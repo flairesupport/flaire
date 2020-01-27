@@ -16,14 +16,11 @@ class Sss
 		# code...
 	}
 
-	/**
-	 * @param 	$type 		str 		employed, self-employed, kasambahay, ofw
-	 */
 	public function contri($comp)
 	{
-		$msr = $this->msc($comp);
+		$msc = $this->msc($comp);
 		$ec = $this->ec($comp);
-		return $cont = $msr * 0.12 + $ec;
+		return $cont = $msc * 0.12 + $ec;
 	}
 
 	//monthly_salary_credit
@@ -71,15 +68,15 @@ class Sss
 
 	public function ee($comp)
 	{
-		$msr = $this->msc($comp);
-		return $ee = $msr * 0.04;		
+		$msc = $this->msc($comp);
+		return $ee = $msc * 0.04;		
 	}
 
 	public function er($comp)
 	{
-		$msr = $this->msc($comp);
+		$msc = $this->msc($comp);
 		$ec = $this->ec($comp);
-		return $ee = $msr * 0.08 + $ec;		
+		return $ee = $msc * 0.08 + $ec;		
 	}
 
 	//employees_compensation_program
@@ -93,7 +90,6 @@ class Sss
 }
 
 ?>
-
  <!DOCTYPE html>
  <html>
   <head>
@@ -105,19 +101,18 @@ class Sss
 	<input type="text" name="salary" value="<?php echo (isset($_POST['salary'])) ? $_POST['salary'] : '' ?>">
 	<input type="submit" name="submit">
 </form>
+<!-- Example Usage -->
  <?php 
  if ($_POST['submit'] !== NULL) {
 $sss = new Sss;
 $netpay = (float) $_POST['salary'];
-$contibution = $sss->contri($netpay);
+
 echo '<br>Monthly Salary:' .$netpay;
 echo '<br>Monthly Salary Credit:' .$sss->msc($netpay);
 echo '<br>Employee Contribution:' .$sss->ee($netpay);
 echo '<br>Employer Contribution:' .$sss->er($netpay);
 echo '<br>Total Contribution:' .$sss->contri($netpay); 
  }
-
  ?>
-
  </body>
  </html>
